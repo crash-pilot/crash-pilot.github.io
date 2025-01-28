@@ -1,0 +1,54 @@
+<footer>
+    <div class="footer-content">
+      <p>© 2025 Your Website Name</p>
+      <p><a href="/privacy-policy">Privacy Policy</a> | <a href="/terms-of-service">Terms of Service</a></p>
+      <p>Powered by Your Technology</p>
+    </div>
+  </footer>
+  
+  <!-- Footer-specific CSS -->
+  <style>
+    footer {
+      background-color: var(--js-accent-color); /* Accent color for background */
+      color: var(--js-primary-color); /* Primary color for text */
+      text-align: center;
+      padding: 20px;
+      width: 100%; /* Make footer full width */
+      position: relative;
+      margin-top: 20px;
+      overflow: hidden; /* Prevent any scrolling within the footer */
+      box-sizing: border-box; /* Ensure padding does not affect overall height */
+    }
+  
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+  
+    footer p {
+      margin: 5px;
+      font-size: 0.9rem;
+    }
+  
+    footer a {
+      color: var(--js-primary-color); /* Use primary color for links */
+      text-decoration: none;
+    }
+  
+    footer a:hover {
+      text-decoration: underline;
+    }
+  
+    /* Layout to ensure footer is at the bottom of the page */
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 0;
+    }
+  
+    main {
+      flex-grow: 1;
+    }
+  </style>
+  

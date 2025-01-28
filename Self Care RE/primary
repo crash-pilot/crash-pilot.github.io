@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self Care Pet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            height: 100vh;
+            background-color: #f0f8ff;
+        }
+
+        .pet {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #ffcccb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .pet span {
+            font-size: 2rem;
+        }
+
+        .mood {
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .habit {
+            margin-bottom: 10px;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #87cefa;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #4682b4;
+        }
+
+        .notification {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="pet" onclick="randomAffirmation()">
+        <span>🐾</span>
+    </div>
+    <div class="mood">Mood: <span id="mood">Happy</span></div>
+
+    <div id="habits">
+        <div class="habit">
+            <input type="text" id="habit-name" placeholder="Enter habit...">
+            <button onclick="addHabit()">Add Habit</button>
+        </div>
+        <div id="habit-list"></div>
+    </div>
+
+    <div class="buttons">
+        <button onclick="supportMessage()">I'm feeling down</button>
+        <button onclick="safeSpaces()">I don't like myself right now</button>
+        <button onclick="motivation()">I'm feeling unmotivated</button>
+    </div>
+
+    <script>
+        let mood = "Happy";
+        let happiness = 100;
+
+        function updateMood() {
+            if (happiness > 70) {
+                mood = "Happy";
+            } else if (happiness > 40) {
+                mood = "Neutral";
+            } else {
+                mood = "Sad";
+            }
+            document.getElementById('mood').innerText = mood;
+        }
+
+        function addHabit() {
+            const habitName = document.getElementById('habit-name').value;
+            if (!habitName) return;
+
+            const habitList = document.getElementById('habit-list');
+            const habitItem = document.createElement('div');
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+
+            checkbox.onchange = () => {
+                happiness += checkbox.checked ? 10 : -10;
+                updateMood();
+            };
+
+            habitItem.textContent = habitName;
+            habitItem.prepend(checkbox);
+            habitList.appendChild(habitItem);
+            document.getElementById('habit-name').value = '';
+        }
+
+        function randomAffirmation() {
+            const affirmations = [
+                "You're doing great!",
+                "Take a deep breath, you're amazing.",
+                "Keep going, you've got this!",
+                "One step at a time!"
+            ];
+            alert(affirmations[Math.floor(Math.random() * affirmations.length)]);
+        }
+
+        function supportMessage() {
+            alert("I'm here for you. It's okay to feel down sometimes. Remember, you're stronger than you think, and this feeling will pass.");
+        }
+
+        function safeSpaces() {
+            alert("Here are some safe spaces and contacts: \n- Crisis Text Line: Text HOME to 741741 \n- National Suicide Prevention Lifeline: 1-800-273-TALK \n- Talk to a trusted friend or family member.");
+        }
+
+        function motivation() {
+            alert("You are capable of amazing things. Even small steps forward are still progress. Keep going—you've got this!");
+        }
+
+        function scheduleNotification(time, habit) {
+            const now = new Date();
+            const targetTime = new Date(now.toDateString() + ' ' + time);
+            const timeout = targetTime.getTime() - now.getTime();
+
+            if (timeout > 0) {
+                setTimeout(() => {
+                    alert(`Time to work on: ${habit}`);
+                }, timeout);
+            }
+        }
+    </script>
+</body>
+</html>

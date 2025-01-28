@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self-Care Pet</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr; /* 3 columns layout */
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .section {
+            border: 2px solid #444;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+            background-color: #1e1e1e;
+        }
+
+        #pet-section {
+            text-align: center;
+        }
+
+        #pet-section img {
+            max-width: 33%;
+            height: auto;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+
+        #pet-section button {
+            margin: 0.5rem 0;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            background-color: #333;
+            color: #ffffff;
+        }
+
+        #pet-section button:hover {
+            background-color: #555;
+        }
+
+        #speech-box {
+            display: none;
+            margin: 1rem auto;
+            padding: 1rem;
+            border: 2px solid #444;
+            border-radius: 8px;
+            background-color: #1e1e1e;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+            max-width: 90%;
+            font-size: 1.2rem;
+        }
+
+        .mobile-friendly {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 768px) {
+            .mobile-friendly {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        a {
+            color: #bb86fc;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 1rem;
+            background-color: #1e1e1e;
+            color: #888;
+            border-top: 1px solid #444;
+        }
+
+        footer a {
+            color: #bb86fc;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .task-form input, .task-form textarea, .task-form select, .task-form button {
+            display: block;
+            width: 100%;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid #555;
+            border-radius: 4px;
+            background-color: #222;
+            color: #fff;
+        }
+
+        .task {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid #444;
+            border-radius: 4px;
+            background-color: #1e1e1e;
+        }
+
+        .task .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .task .actions button {
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .task .actions button:hover {
+            color: #bb86fc;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mobile-friendly">
+
+        <!-- Section 1: Pet -->
+        <div id="pet-section" class="section">
+            <h2>Sebastian</h2>
+            <img id="pet-image" src="https://f2.toyhou.se/file/f2-toyhou-se/images/93570515_aeUz6esmw9w8vrc.png" alt="Your Pet">
+
+            <div id="speech-box"></div>
+
+            <h3>Current Mood: <span id="current-mood">Happy</span></h3>
+
+            <button id="motivation-button">I need Motivation!</button>
+            <button id="safety-button">I don't Feel Safe</button>
+        </div>
+
+        <!-- Section 2: Tasks -->
+        <div id="tasks-section" class="section">
+            <h2>Tasks</h2>
+            <!-- Add Tasks -->
+            <form id="task-form" class="task-form">
+                <div class="task-inputs">
+                    <input type="text" id="task-name" placeholder="Task Name" required style="max-width:33%;">
+                    <input type="time" id="task-time" required style="max-width:33%;">
+                    <textarea id="task-notes" placeholder="Extra Notes (Optional)" style="max-width:33%;"></textarea>
+                </div>
+                
+                <style>
+                    .task-inputs {
+                        display: flex;
+                        justify-content: space-between;
+                        gap: 1rem; /* Adds space between the elements */
+                    }
+                
+                    .task-inputs input, .task-inputs textarea {
+                        flex: 1; /* Makes each input take equal space */
+                        max-width: 33%;
+                    }
+                </style>
+                
+                <select id="task-type" required>
+                    <option value="daily-tasks">Daily Task</option>
+                    <option value="to-dos">To-Do</option>
+                    <option value="upcoming">Upcoming</option>
+                </select>
+                <label>
+                    <input type="checkbox" id="send-notification">Send a Notification?
+                </label>
+                <div id="notification-options" class="hidden">
+                    <input type="time" id="notification-time" placeholder="Notification Time">
+                    <label>
+                        <input type="checkbox" id="one-time-notification">One Time?
+                    </label>
+                    <input type="date" id="notification-date" class="hidden">
+                </div>
+                <button type="submit">Add Task</button>
+            </form>
+            <!-- End Add Tasks -->
+
+            <div id="daily-tasks">
+                <h3>Daily Tasks</h3>
+                <div class="tasks-list"></div>
+            </div>
+            <div id="to-dos">
+                <h3>To-Do's</h3>
+                <div class="tasks-list"></div>
+            </div>
+            <div id="upcoming">
+                <h3>Upcoming</h3>
+                <div class="tasks-list"></div>
+            </div>
+        </div>
+
+        <!-- Section 3: Empty -->
+        <div id="third-section" class="section">
+            <h2>Placeholder Section</h2>
+            <p>Content coming soon!</p>
+        </div>
+
+    </div>
+
+    <footer>
+        Made by <a href="#">TrenchPunk</a> with help from ChatGPT
+    </footer>
+
+    <script>
+        const petImage = document.getElementById('pet-image');
+        const motivationButton = document.getElementById('motivation-button');
+        const safetyButton = document.getElementById('safety-button');
+        const speechBox = document.getElementById('speech-box');
+
+        function showSpeech(text) {
+            speechBox.textContent = text;
+            speechBox.style.display = 'block';
+        }
+
+        petImage.addEventListener('click', () => {
+            const defaultMessages = [
+                "Hello! How can I help you today?",
+                "You're doing amazing!",
+                "I'm here to cheer you on!",
+                "Let’s tackle today together!"
+            ];
+            const randomMessage = defaultMessages[Math.floor(Math.random() * defaultMessages.length)];
+            showSpeech(randomMessage);
+        });
+
+        motivationButton.addEventListener('click', () => {
+            const motivationMessages = [
+                "You can do this! Start small and build momentum!",
+                "Believe in yourself; I do!",
+                "Take a deep breath and take the first step.",
+                "Progress, not perfection. Keep going!"
+            ];
+            const randomMotivation = motivationMessages[Math.floor(Math.random() * motivationMessages.length)];
+            showSpeech(randomMotivation);
+        });
+
+        safetyButton.addEventListener('click', () => {
+            const safetyMessages = [
+                "If you’re feeling unsafe, please call someone you trust.",
+                "Hotline: 1-800-273-8255 (USA)",
+                "You are not alone. Reach out to a friend or family member.",
+                "Warmline: 1-877-910-9276 for emotional support."
+            ];
+            const safetyText = safetyMessages.join("\n");
+            showSpeech(safetyText);
+        });
+
+        const taskForm = document.getElementById('task-form');
+        const sendNotificationCheckbox = document.getElementById('send-notification');
+        const notificationOptions = document.getElementById('notification-options');
+        const oneTimeNotificationCheckbox = document.getElementById('one-time-notification');
+        const notificationDate = document.getElementById('notification-date');
+
+        sendNotificationCheckbox.addEventListener('change', () => {
+            notificationOptions.classList.toggle('hidden', !sendNotificationCheckbox.checked);
+        });
+
+        oneTimeNotificationCheckbox.addEventListener('change', () => {
+            notificationDate.classList.toggle('hidden', !oneTimeNotificationCheckbox.checked);
+        });
+
+        taskForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const taskName = document.getElementById('task-name').value;
+            const taskTime = document.getElementById('task-time').value;
+            const taskNotes = document.getElementById('task-notes').value;
+            const taskType = document.getElementById('task-type').value;
+
+            const taskElement = document.createElement('div');
+            taskElement.classList.add('task');
+
+            taskElement.innerHTML = `
+                <div>
+                    <strong>${taskName}</strong><br>
+                    Due: ${taskTime}<br>
+                    Notes: ${taskNotes || "None"}
+                </div>
+                <div class="actions">
+                    <button class="complete-task">✔</button>
+                    <button class="delete-task">🗑</button>
+                </div>
+            `;
+
+            document.querySelector(`#${taskType} .tasks-list`).appendChild(taskElement);
+
+            taskElement.querySelector('.complete-task').addEventListener('click', () => {
+                taskElement.remove();
+            });
+
+            taskElement.querySelector('.delete-task').addEventListener('click', () => {
+                taskElement.remove();
+            });
+
+            // Handle notifications
+            if (sendNotificationCheckbox.checked) {
+                const notificationTime = document.getElementById('notification-time').value;
+                const isOneTime = oneTimeNotificationCheckbox.checked;
+                const notificationDateValue = notificationDate.value;
+
+                if (notificationTime) {
+                    const notificationMessage = `${taskName} is due at ${taskTime}`;
+                    const notificationTimeDate = new Date();
+                    notificationTimeDate.setHours(...notificationTime.split(':'));
+
+                    if (isOneTime && notificationDateValue) {
+                        const [year, month, day] = notificationDateValue.split('-');
+                        notificationTimeDate.setFullYear(year, month - 1, day);
+                    }
+
+                    const now = new Date();
+                    const delay = notificationTimeDate - now;
+
+                    if (delay > 0) {
+                        setTimeout(() => {
+                            new Notification("Task Reminder", { body: notificationMessage });
+                        }, delay);
+                    }
+                }
+            }
+
+            taskForm.reset();
+            notificationOptions.classList.add('hidden');
+            notificationDate.classList.add('hidden');
+        });
+    </script>
+
+    <script src="variables.js"></script>
+    <script src="self_care_pet.js"></script>
+</body>
+</html>

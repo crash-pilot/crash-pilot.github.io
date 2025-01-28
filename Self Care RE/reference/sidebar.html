@@ -1,0 +1,20 @@
+<!-- Sidebar HTML -->
+<link rel="stylesheet" href="css/visuals.css">
+<div class="sidebar" id="sidebar" style="background-color: var(--primary-bg-color); color: var(--primary-text-color);">
+  <button class="sidebar-toggle" style="background-color: var(--accent-color); color: var(--primary-text-color);" onclick="toggleSidebar()">&#9776;</button>
+  <div class="sidebar-content">
+    <ul>
+      <li><a href="#" style="color: var(--primary-text-color);">Home</a></li>
+      <li><a href="#" style="color: var(--primary-text-color);">About</a></li>
+      <li><a href="#" style="color: var(--primary-text-color);">Services</a></li>
+      <li><a href="#" style="color: var(--primary-text-color);">Contact</a></li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('active');
+  }
+</script>

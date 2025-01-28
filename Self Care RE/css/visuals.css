@@ -1,0 +1,23 @@
+:root {
+    --text-color: #000000;   /* Default text color */
+    --accent-color: #FF5733; /* Default accent color */
+    --primary-color: #3498db;/* Default primary color */
+    --background-image: url(''); /* Default background image */
+}
+
+/* Example usage of variables in your CSS */
+body {
+    color: var(--text-color);
+    background-color: var(--primary-color);
+    background-image: var(--background-image);
+    background-size: cover;
+    background-position: center;
+}
+
+a {
+    color: var(--accent-color);
+}
+
+.header {
+    background-color: var(--primary-color);
+}
